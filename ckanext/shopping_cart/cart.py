@@ -10,7 +10,7 @@ import ckan.plugins.toolkit as tk
 from ckan.common import session
 
 CONFIG_CART_FACTORY = "ckanext.shopping_cart.factory.default"
-DEFAULT_CART_FACTORY = "redis"
+DEFAULT_CART_FACTORY = "session"
 
 
 def get_cart(scope: str, context: dict[str, Any]):
