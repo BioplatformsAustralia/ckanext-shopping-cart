@@ -4,14 +4,15 @@ ckan.module("shopping-cart-clear", function ($) {
     options: {
       scope: null,
       cart: null,
+      username: null
     },
     initialize: function () {
       this.el.on("click", () => this.clear());
     },
 
     clear: function () {
-      const { scope, cart } = this.options;
-      const payload = { cart, scope };
+      const { scope, cart, username } = this.options;
+      const payload = { cart, scope, username };
 
       this.sandbox.client.call(
         "POST",

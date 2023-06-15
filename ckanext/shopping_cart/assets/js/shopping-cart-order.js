@@ -5,6 +5,7 @@ ckan.module("shopping-cart-order", function ($) {
       scope: null,
       cart: null,
       item: null,
+      username: null,
       details: {},
       inCart: false,
       stateActive: "shopping-cart-order-inside",
@@ -20,8 +21,8 @@ ckan.module("shopping-cart-order", function ($) {
     },
 
     processItem: function () {
-      const { scope, cart, item, details, inCart } = this.options;
-      const payload = { cart, item, scope, details };
+      const { scope, cart, item, details, inCart, username } = this.options;
+      const payload = { cart, item, scope, details, username };
       let action, event;
       if (inCart) {
         action = "shopping_cart_pop";

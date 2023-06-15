@@ -5,6 +5,7 @@ ckan.module("shopping-cart-dock", function ($) {
       scope: null,
       cart: null,
       counter: ".counter",
+      username: null,
 
       heading: "shopping_cart_dock_heading.html",
       empty: "shopping_cart_dock_empty.html",
@@ -61,8 +62,8 @@ ckan.module("shopping-cart-dock", function ($) {
       ]);
     },
     _payload: function () {
-      const { scope, cart } = this.options;
-      return { scope, cart };
+      const { scope, cart, username } = this.options;
+      return { scope, cart, username };
     },
     _render: async function (name, target, payload) {
       return new Promise((s, e) =>

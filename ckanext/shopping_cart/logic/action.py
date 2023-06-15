@@ -14,7 +14,7 @@ action, get_actions = Collector("shopping_cart").split()
 def add(context, data_dict):
     tk.check_access("shopping_cart_add", context, data_dict)
 
-    c = cart.get_cart(data_dict["scope"], context)
+    c = cart.get_cart(data_dict["scope"], context, data_dict)
     c.restore(data_dict["cart"])
 
     c.add(data_dict["item"], data_dict["details"])
@@ -27,7 +27,7 @@ def add(context, data_dict):
 def pop(context, data_dict):
     tk.check_access("shopping_cart_pop", context, data_dict)
 
-    c = cart.get_cart(data_dict["scope"], context)
+    c = cart.get_cart(data_dict["scope"], context, data_dict)
     c.restore(data_dict["cart"])
 
     c.pop(data_dict["item"])
@@ -41,7 +41,7 @@ def pop(context, data_dict):
 def show(context, data_dict):
     tk.check_access("shopping_cart_show", context, data_dict)
 
-    c = cart.get_cart(data_dict["scope"], context)
+    c = cart.get_cart(data_dict["scope"], context, data_dict)
     c.restore(data_dict["cart"])
 
     return c.show()
@@ -53,7 +53,7 @@ def show(context, data_dict):
 def clear(context, data_dict):
     tk.check_access("shopping_cart_clear", context, data_dict)
 
-    c = cart.get_cart(data_dict["scope"], context)
+    c = cart.get_cart(data_dict["scope"], context, data_dict)
     c.clear()
     c.save(data_dict["cart"])
 
