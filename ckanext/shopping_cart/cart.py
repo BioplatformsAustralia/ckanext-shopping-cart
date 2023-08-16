@@ -131,7 +131,7 @@ class UserCart(Cart):
         self.username = self.data_dict['__extras']['username']
         self.id = self.username
 
-    def get_user(self):
+    def _get_user(self):
         # Default to own user
         username = g.userobj.name
         # Only admins can view another user's cart
@@ -144,14 +144,14 @@ class UserCart(Cart):
         return user
 
     def restore(self, key: str):
-        user = self.get_user()
-        plugin_extras = self.get_plugin_extras(user)
-        self.content = self.get_cart(plugin_extras, key)
+        user = self._get_user()
+        plugin_extras = self._get_plugin_extras(user)
+        self.content = self._get_cart_from_extras(plugin_extras, key)
 
     def save(self, key: str):
-        user = self.get_user()
-        plugin_extras = self.get_plugin_extras(user)
-        plugin_extras[self.get_cart_key(key)] = self.content
+        user = self._get_user()
+        plugin_extras = self._get_plugin_extras(user)
+        plugin_extras[self._get_cart_key(key)] = self.content
         user['plugin_extras'] = plugin_extras
         tk.get_action('user_update')(self.admin_ctx, user)
 
@@ -159,20 +159,20 @@ class UserCart(Cart):
         self.clear()
         self.save(key)
     
-    def get_plugin_extras(self, user):
+    def _get_plugin_extras(self, user):
         if 'plugin_extras' in user and user.get('plugin_extras') is not None:
             return user.get('plugin_extras')
         else:
             return {}
     
-    def get_cart(self, plugin_extras, cart_name):
-        cart_key = self.get_cart_key(cart_name)
+    def _get_cart_from_extras(self, plugin_extras, cart_name):
+        cart_key = self._get_cart_key(cart_name)
         if plugin_extras is not None and cart_key in plugin_extras: 
             return plugin_extras[cart_key]
         else:
             return {}      
 
-    def get_cart_key(self, key):
+    def _get_cart_key(self, key):
         return f"shopping_cart__{key}"
 
 class FakeSessionCart(SessionCart):
